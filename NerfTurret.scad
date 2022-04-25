@@ -97,3 +97,13 @@ translate([411,13,50]){ rotate([-15,15,0]){
     cylinder(77,2.5,2.5,center=true);}}
 translate([400,0,10]){ rotate([0,90,0]){
  cylinder(11,5,5,center=true);}}}
+ difference(){
+translate([389,-13,50]){ rotate([15,-15,0]){
+    cylinder(77,2.5,2.5,center=true);}}
+translate([400,0,10]){ rotate([0,90,0]){
+ cylinder(11,5,5,center=true);}}}
+ difference(){
+translate([411,-13,50]){ rotate([15,15,0]){
+    cylinder(77,2.5,2.5,center=true);}}
+translate([400,0,10]){ rotate([0,90,0]){
+ cylinder(11,5,5,center=true);}}}
