@@ -17,7 +17,11 @@ Tower p1("Player 1", 1, 0, 0);
 Tower p2("Player 2", 2, 0, 0);
 
 
+
 void setup() {
+
+  start:
+  millis()=0;
   pinMode(XPIN, INPUT);
   pinMode(YPIN, INPUT);
   pinMode(SWPIN,INPUT);
@@ -39,6 +43,8 @@ void setup() {
   lcd.init();
   lcd.backlight();
   mainmenu();     //Start game 
+ goto start;
+  
 }
 
 void loop() {
