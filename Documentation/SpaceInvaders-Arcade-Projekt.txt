@@ -1,0 +1,19 @@
++++ SPIELKONZEPT SPACE INVADERS: ARCADE GAME +++
+
+Anforderungen:
+- 2 Aktuatoren (Ausgabegeräte)
+- 1 Sensor mit absoluter Ausgabe (analog)
+- 1 digitaler Sensor (relativer Wert)
+
+- mind. 1 Selektion
+- Schleife
+- Funktion
+- PIN- / Timer-Interrupt
+
+Analyse:
+
+
+Design:
+Es soll in der ersten Phase ein Space Invaders-Emulator entwickelt werden.
+Zur Steuerung sollen zwei Joysticks und vier Buttons genutzt werden. Der Spieler
+erhält Signale und Feedback über ein serielles LCD-Display sowie einen Lautsprecher.
