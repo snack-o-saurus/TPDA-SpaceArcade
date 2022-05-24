@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "TMC-Driver")(type "KiCad")(uri "${KIPRJMOD}/TMC-Driver.kicad_sym")(options "")(descr ""))
+  (lib (name "NEMA-motor")(type "KiCad")(uri "${KIPRJMOD}/NEMA-motor.kicad_sym")(options "")(descr ""))
+  (lib (name "FunDuino")(type "KiCad")(uri "${KIPRJMOD}/FunDuino.kicad_sym")(options "")(descr ""))
+)
