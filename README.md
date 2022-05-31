@@ -10,4 +10,7 @@ OOMENS - TAEFI
 
 Space Invaders Arcade Machine - Arduino Firmware Code
 
+Dokumentation des TMC-2208-Treibers: https://github.com/teemuatlut/TMCStepper/blob/74e8e6881adc9241c2e626071e7328d7652f361a/README.md
+
+
 Hier finden Sie alle nützlichen Informationen und Quellenangaben zur Umsetzung des Codes.
