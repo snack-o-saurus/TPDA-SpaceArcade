@@ -1,35 +1,47 @@
 #include "Classes.h"
 #include "Variable.h"
 
+/*
+void mainmenu(Gameobject * object) {
 
-void mainmenu() {
   while (!start) {
-    lcd.clear();
-    lcd.setCursor(4, 0); // set the cursor to column 4, line 0
-    lcd.print(String("Mainmenu"));
-    lcd.setCursor(2, 1);
-    lcd.print(String("PvP    Score"));
-    delay(1000);
-    if (xval < 0) {
-      lcd.clear();
-      lcd.print(String("[PvP]    Score"));
-      if (button.isPressed()) {
-        start = true;
-        //initiate Verus-MOD
-      }
-    }
-    if (xval > 0) {
-      lcd.clear();
-      lcd.print(String("PvP    [Score]"));
-      if (button.isPressed()) {
-        start = true;
-        //initiate Solo-MOD
-      }
+    switch (object -> _Dir) {
+      case LEFT:
+        lcd.setCursor(1, 1);
+        lcd.print("[PvP]   Score");
+        if (button.isPressed()) {
+          start = true;
+          solo = true;          //abfrage ob solo true ist
+          lcd.clear();
+          break;
+          //initiate Verus-MOD
+        }
+      case RIGHT:
+        lcd.setCursor(2, 1);
+        lcd.print(String("PvP   [Score]"));
+        if (button.isPressed()) {
+          start = true;
+          lcd.clear();
+          break;
+          //initiate Solo-MOD
+        }
+      default:
+        lcd.clear();
+        lcd.setCursor(4, 0);
+        lcd.print("Mainmenu");
+        lcd.setCursor(2, 1);
+        lcd.print("PvP    Score");
+        delay(1200);
+        break;
     }
   }
 }
-void testStick() {
-  buttonState = button.getState();
+*/
+
+/*
+  void testStick() {
+
+  Serial.println(xPos);
   if (button.isPressed()) {
     Serial.println("The button is pressed");
     digitalWrite(3, HIGH);
@@ -37,18 +49,45 @@ void testStick() {
     digitalWrite(6, HIGH);
     digitalWrite(9, HIGH);
   }
-  if (button.isReleased()) {
+  else if (button.isReleased()) {
     Serial.println("The button is released");
     digitalWrite(3, LOW);
     digitalWrite(5, LOW);
     digitalWrite(6, LOW);
     digitalWrite(9, LOW);
   }
+  else if (xPos < -10) {
+    digitalWrite(3, HIGH);
+  }
+  else if (xPos > 10) {
+    digitalWrite(5, HIGH);
+  }
+  else if (yPos < -10) {
+    digitalWrite(6, HIGH);
+  }
+  else if (yPos > 10) {
+    digitalWrite(9, HIGH);
+  }
+  else {
+    digitalWrite(3, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(9, LOW);
+  }
+
+
   Serial.print("x = ");
-  Serial.print(xval);
+  Serial.print(xPos);
   Serial.print(", y = ");
-  Serial.println(yval);
+  Serial.println(yPos);
   Serial.print("button: ");
   Serial.println(buttonState);
-  delay(100);
+  delay(500);
+  }
+*/
+
+void singleplayer() {
+
+
+
 }
