@@ -1,93 +1,112 @@
 #include "Classes.h"
 #include "Variable.h"
 
-/*
 void mainmenu(Gameobject * object) {
-
-  while (!start) {
+  if (!start) {
     switch (object -> _Dir) {
       case LEFT:
+        lcd.setCursor(0, 0);
+        lcd.print("-Press RED Button-");
         lcd.setCursor(1, 1);
-        lcd.print("[PvP]   Score");
-        if (button.isPressed()) {
-          start = true;
-          solo = true;          //abfrage ob solo true ist
+        lcd.print("[PvP]   Solo");
+        if (button.isPressed()) {             //initiate Verus-MOD
           lcd.clear();
-          break;
-          //initiate Verus-MOD
+          digitalWrite(EN_PIN_PAN, LOW);
+          digitalWrite(EN_PIN_TILT, LOW);
+          Serial.println("Button pressed");
+          start = true;
+          menutime = millis();
+          return menutime;
         }
+        break;
       case RIGHT:
+        lcd.setCursor(0, 0);
+        lcd.print("-Press RED Button-");
         lcd.setCursor(2, 1);
-        lcd.print(String("PvP   [Score]"));
-        if (button.isPressed()) {
-          start = true;
+        lcd.print(String("PvP   [Solo]"));
+        if (button.isPressed()) {            //initiate Solo-MOD
           lcd.clear();
-          break;
-          //initiate Solo-MOD
+          Serial.println("Button pressed");
+          digitalWrite(EN_PIN_PAN, LOW);
+          digitalWrite(EN_PIN_TILT, LOW);
+          start = true;
+          solo = true;          //abfrage ob solo true ist muss noch gebaut werden
+          menutime = millis();
+          return menutime;
         }
+        break;
       default:
         lcd.clear();
         lcd.setCursor(4, 0);
         lcd.print("Mainmenu");
         lcd.setCursor(2, 1);
-        lcd.print("PvP    Score");
-        delay(1200);
+        lcd.print("PvP    Solo");
+        delay(50);
         break;
     }
   }
 }
-*/
-
-/*
-  void testStick() {
-
-  Serial.println(xPos);
+void runtime() {
+  if (start) {
+    uint32_t playtime = millis();
+    Serial.println("InGame-Time: ");
+    Serial.println((playtime - menutime) / 1000);
+  }
+}
+void pullTrigger() {
   if (button.isPressed()) {
-    Serial.println("The button is pressed");
-    digitalWrite(3, HIGH);
-    digitalWrite(5, HIGH);
-    digitalWrite(6, HIGH);
-    digitalWrite(9, HIGH);
+    Serial.println(buttonState);
+    servo.write(180);
+    delay(300);
+    servo.write(90);
   }
-  else if (button.isReleased()) {
-    Serial.println("The button is released");
-    digitalWrite(3, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(6, LOW);
-    digitalWrite(9, LOW);
+}
+/*
+  void singleplayer() {
+  // all functions explicitly for singleplayer belong here
   }
-  else if (xPos < -10) {
-    digitalWrite(3, HIGH);
-  }
-  else if (xPos > 10) {
-    digitalWrite(5, HIGH);
-  }
-  else if (yPos < -10) {
-    digitalWrite(6, HIGH);
-  }
-  else if (yPos > 10) {
-    digitalWrite(9, HIGH);
-  }
-  else {
-    digitalWrite(3, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(6, LOW);
-    digitalWrite(9, LOW);
-  }
-
-
-  Serial.print("x = ");
-  Serial.print(xPos);
-  Serial.print(", y = ");
-  Serial.println(yPos);
-  Serial.print("button: ");
-  Serial.println(buttonState);
-  delay(500);
+  void multiplayer() {
+  // all functions explicitly for multiplayer belong here
   }
 */
+void mainGame() {
+  // read Target feedback(hitzone, dead or alife)
+  // count Score & save it
+  // count runtime
+  if (solo == false)
+    //start PvP
+    //switch controll off turret between p1 & p2
+    if (solo == true) {
+      //start solo
+      //start Countdown
+    }
+}
 
-void singleplayer() {
+void enterName(Gameobject * object) {
+  for (i = 0; i <= 25 && object-> _Dir == DOWN; i++) {
+    object->getStick();
+    lcd.setCursor(1, 3 + j);                            // Eingabeart ist noch nicht klar!!(vielleicht Buchstaben A-Z pro Zeichen durchlaufen und mit Button bestätigen und zur nächsten Stelle springen
+    lcd.print(arrayLetters[i]);
+    delay(2000);
 
+    if (button.isPressed()) {
+      tempName[j] = arrayLetters[i];                    // Einzelne Buchstaben des Arrays in id übertragen in einen String
+      // lcd.print(arrayLetters[i]);
+      j++;
+      return j;
+      break;
+    }
+    if (j == 8) {
+      lcd.setCursor(2, 1);
+      lcd.print("Saving ID...");
+      for (z = 0; z <= 8; z++) {
+        object -> _id = object-> _id + tempName[z];
 
+      }
+    }
+    if (i == 25) {
+      i = 0;
+    }
+  }
 
 }

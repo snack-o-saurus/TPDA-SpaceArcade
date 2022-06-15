@@ -11,49 +11,50 @@
 //Controller(String label, int stickPinX, int stickPinY, int stickButton, int buttonA)
 //Tower(String id, byte control, int score, byte Dir)
 Gameobject p1("Player 1", 1, 0, 0, 0, 0, XPIN, YPIN, SWPIN);
-//Gameobject p2("Player 2", 2, 0, 0, 0, 0);
+Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN, YPIN, SWPIN);    // Stickbelegung für Player 2 festlegen
 
 
 void setup() {
 
   Serial.begin(9600);
   /*
-    driver.pdn_disable(1);              // Use PDN/UART pin for communication
-    driver.I_scale_analog(0);           // Adjust current from the registers
-    driver.rms_current(600);            // Set driver current 500mA
-    driver.toff(0x2);                   // Enable driver
+    driver.pdn_disable(1);                                      // Use PDN/UART pin for communication
+    driver.I_scale_analog(0);                                   // Adjust current from the registers
+    driver.rms_current(600);                                    // Set driver current 500mA
+    driver.toff(0x2);                                           // Enable driver
   */
-  //button.setDebounceTime(7);
+  button.setDebounceTime(100);
   pinMode(EN_PIN_PAN, OUTPUT);
   pinMode(STEP_PIN_PAN, OUTPUT);
   pinMode(EN_PIN_TILT, OUTPUT);
   pinMode(STEP_PIN_TILT, OUTPUT);
 
-  pinMode(XPIN, INPUT);
-  pinMode(YPIN, INPUT);
+  pinMode(XPIN,  INPUT);
+  pinMode(YPIN,  INPUT);
   pinMode(SWPIN, INPUT);
-  // lcd.init();
-  // lcd.backlight();
-  Serial.println("Wake UP");
-  digitalWrite(EN_PIN_PAN, LOW);
+  servo.attach(SERVO_PIN);
+  lcd.init();
+  lcd.backlight();
+  digitalWrite(EN_PIN_PAN, HIGH);
+  digitalWrite(EN_PIN_TILT, HIGH);
+
+
 
 }
 void loop() {
-  Serial.println("Wake UP");
-  //mainmenu(&p1);
-  gametime = millis();
-
-  gametime = gametime - systime ;
-  // p1.update();
+  button.loop();
+  buttonState = button.getState();
+  mainmenu(&p1);
+  runtime();
   p1.motion();
   p1.getStick();
-  /* while(start = true&& gametime< 9000){
-    }
-  */
+  if(solo==true){
+    enterName(&p1);
+  }
+  pullTrigger();
 
-   button.loop();
-   buttonState = button.getState();
-  
+
+
 
 
 }
