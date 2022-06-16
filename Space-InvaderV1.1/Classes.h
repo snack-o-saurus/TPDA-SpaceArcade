@@ -26,11 +26,11 @@
 
 
 /* Target recognition */
-#define PINT1
-#define PINT2
-#define PINT3
-#define PINT4
-#define PINT5
+#define PINT1     A2
+#define PINT2     A3
+#define PINT3     A4
+#define PINT4     A5
+#define PINT5     A6
 
 
 
