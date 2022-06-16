@@ -1,0 +1,19 @@
+### YOUMILE DR-YM-019 DATA SHEET ###
+
+
+ Working voltage: 3.3V to 5V
+  max. working current: 1mA
+
+Operating temperature range: -10°C to +70°C
+
+ASIN: B07YOG1F5X
+
+
+-- GPIO --
+S = signal output (use analog input)
++ = VCC
+- = GND
+----------------------------
+piezoelectric ceramic
++ = positive electrode
+- = negative electrode
