@@ -11,6 +11,13 @@
 #define XPIN_P2 A2
 #define YPIN_P2 A3
 
+/* Target recognition */
+#define PINT1     A2
+#define PINT2     A3
+#define PINT3     A4
+#define PINT4     A5
+#define PINT5     A6
+
 
 
 #define STEP_PIN_PAN  10        // Step on rising edge
@@ -28,6 +35,50 @@ ezButton button(BUTTON_PIN);
 TMC2208Stepper driver = TMC2208Stepper(&Serial);  // Create driver and use
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27
 Servo servo; 
+
+
+/*   Implementing object type for targets & score counting      */
+class target {
+private: 
+         bool _tid = false;
+  
+public: int _tscore;
+        int _targetid;
+         int _tcount;
+  
+  target(int tcount, bool tid,int tscore, int targetid){
+    setTcount(tcount);
+    setTid(tid);
+    settargetid(targetid);
+  }
+      
+/*                Setter functions                            */       
+void setTcount(int tcount){
+ _tcount = tcount;                
+}    
+void setTid(bool tid){
+   _tid = tid;      
+}     
+void setTscore(int tscore){         
+ _tscore = tscore;        
+}
+void setTargetID(int targetid){
+_targetid = targetid;
+}
+
+/*                 Getter Functions                          */
+int getcount(){
+return _tcount;
+}
+bool getT(){
+return(_tid);
+}
+int getTid(){
+return(_targetid);
+}
+        
+         
+};
 
 class Gameobject {
 
