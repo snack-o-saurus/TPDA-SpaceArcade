@@ -32,7 +32,7 @@ byte j = 0;
 //char row1[];
 //char row2[];
 
-char arrayLetters[26] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', "S", "T", "U", "V", "W", "X", "Y", "Z"};
+char arrayLetters[26] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 String arrayName[10];
 String tempName[10];
 String tempId;

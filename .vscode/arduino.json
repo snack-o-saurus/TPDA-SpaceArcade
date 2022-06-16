@@ -1,4 +1,6 @@
 {
-    "board": "arduino:avr:uno",
-    "sketch": "Space-InvaderV1.1\\Space-InvaderV1.1.ino"
+    "board": "arduino:avr:mega",
+    "sketch": "Space-InvaderV1.1\\Space-InvaderV1.1.ino",
+    "configuration": "cpu=atmega2560",
+    "port": "COM5"
 }
