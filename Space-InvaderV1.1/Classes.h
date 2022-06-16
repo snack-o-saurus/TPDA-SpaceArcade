@@ -1,22 +1,37 @@
+/* Inheriting required assets */
 #ifndef CLASSES_H
 #define CLASSES_H
 #include "libraries.h"
 #include "Variable.h"
 
+
+/* Joystick Input */
 #define SWPIN 2
 #define XPIN A0
 #define YPIN A1
 
 
+/* Motor controls */
 #define STEP_PIN_PAN  10        // Step on rising edge
 #define EN_PIN_PAN    13         // LOW = enable driver  / HIGH = disable driver
 #define DIR_PIN_PAN   11
-
 #define STEP_PIN_TILT  6        // Step on rising edge
 #define EN_PIN_TILT    7        // LOW = enable driver  / HIGH = disable driver
 #define DIR_PIN_TILT   5
+
+
+/* Firing control */
 #define SERVO_PIN      9
 #define BUTTON_PIN     4
+
+
+/* Target recognition */
+#define PINT1
+#define PINT2
+#define PINT3
+#define PINT4
+#define PINT5
+
 
 
 ezButton button(BUTTON_PIN);
