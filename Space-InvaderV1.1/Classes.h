@@ -24,12 +24,15 @@ TMC2208Stepper driver = TMC2208Stepper(&Serial);  // Create driver and use
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27
 Servo servo; 
 
+/*   Implementing object type for targets & score counting      */
+
 class target {
-private: int _tcount;
+private: 
          bool _tid = false;
   
 public: int _tscore;
         int _targetid;
+         int _tcount;
   
   target(int tcount, bool tid,int tscore, int targetid){
     setTcount(tcount);
@@ -37,17 +40,31 @@ public: int _tscore;
     settargetid(targetid);
   }
       
-         
- void setTcount(int tcount){
-     _tcount = tcount;                
- }    
-void setTid(tid){
-   _targetid = targetid;      
- }     
-void setTscore{         
+/*                Setter functions                            */       
+void setTcount(int tcount){
+ _tcount = tcount;                
+}    
+void setTid(bool tid){
+   _tid = tid;      
+}     
+void setTscore(int tscore){         
  _tscore = tscore;        
 }
-void 
+void setTargetID(int targetid){
+_targetid = targetid;
+}
+
+/*                 Getter Functions                          */
+int getcount(){
+return _tcount;
+}
+bool getT(){
+return(_tid);
+}
+int getTid(){
+return(_targetid);
+}
+    
          
          
 };
