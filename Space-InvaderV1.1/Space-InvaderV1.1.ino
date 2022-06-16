@@ -10,36 +10,33 @@
 
 //Controller(String label, int stickPinX, int stickPinY, int stickButton, int buttonA)
 //Tower(String id, byte control, int score, byte Dir)
-Gameobject p1("Player 1", 1, 0, 0, 0, 0, XPIN, YPIN, SWPIN);
-Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN, YPIN, SWPIN);    // Stickbelegung für Player 2 festlegen
+Gameobject p1("Player 1", 1, 0, 0, 0, 0, XPIN_P1, YPIN_P1, SWPIN_P1);
+Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN_P2, YPIN_P2, SWPIN_P2);    // Stickbelegung für Player 2 festlegen
+
 
 
 void setup() {
-
   Serial.begin(9600);
-  /*
-    driver.pdn_disable(1);                                      // Use PDN/UART pin for communication
-    driver.I_scale_analog(0);                                   // Adjust current from the registers
-    driver.rms_current(600);                                    // Set driver current 500mA
-    driver.toff(0x2);                                           // Enable driver
-  */
-  button.setDebounceTime(100);
+ 
   pinMode(EN_PIN_PAN, OUTPUT);
   pinMode(STEP_PIN_PAN, OUTPUT);
   pinMode(EN_PIN_TILT, OUTPUT);
   pinMode(STEP_PIN_TILT, OUTPUT);
 
-  pinMode(XPIN,  INPUT);
-  pinMode(YPIN,  INPUT);
-  pinMode(SWPIN, INPUT);
+  pinMode(XPIN_P1,  INPUT);
+  pinMode(YPIN_P1,  INPUT);
+  pinMode(SWPIN_P1, INPUT);
+  pinMode(XPIN_P2,  INPUT);
+  pinMode(YPIN_P2,  INPUT);
+  pinMode(SWPIN_P2, INPUT);
+
+  button.setDebounceTime(100);
   servo.attach(SERVO_PIN);
   lcd.init();
   lcd.backlight();
+  
   digitalWrite(EN_PIN_PAN, HIGH);
   digitalWrite(EN_PIN_TILT, HIGH);
-
-
-
 }
 void loop() {
   button.loop();
@@ -52,6 +49,11 @@ void loop() {
     enterName(&p1);
   }
   pullTrigger();
+
+  if (button.isReleased()){
+    
+  }
+  
 
 
 

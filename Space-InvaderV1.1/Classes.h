@@ -3,9 +3,14 @@
 #include "libraries.h"
 #include "Variable.h"
 
-#define SWPIN 2
-#define XPIN A0
-#define YPIN A1
+#define SWPIN_P1 2
+#define XPIN_P1 A0
+#define YPIN_P1 A1
+
+#define SWPIN_P2 3
+#define XPIN_P2 A2
+#define YPIN_P2 A3
+
 
 
 #define STEP_PIN_PAN  10        // Step on rising edge
@@ -37,6 +42,7 @@ class Gameobject {
     int _xPin;
     int _yPin;
     byte _swPin;
+    
     Gameobject(String id, byte control, int score, byte Dir, int xPos, int yPos, int xPin, int yPin, byte swPin) {
 
       setId(id);
@@ -111,21 +117,26 @@ class Gameobject {
     //Mainmethods
 
     void getStick() {
-      yStick = analogRead(_yPin);               // 0 = LINKS  1023 = RECHTS
-      _yPos = map(yStick, 0, 1023, -100, 100);
-      xStick = analogRead(_xPin);               // 0 = OBEN   1023 = UNTEN
-      _xPos = map(xStick, 0, 1023, -100, 100);
-
-      if (_yPos < -20) {         // Aussteuerung nach oben
+      yStick_P1 = analogRead(YPIN_P1);               // 0 = LINKS  1023 = RECHTS
+      yVal_P1 = map(yStick_P1, 0, 1023, -100, 100);
+      xStick_P1 = analogRead(XPIN_P1);               // 0 = OBEN   1023 = UNTEN
+      xVal_P1 = map(xStick_P1, 0, 1023, -100, 100);
+      
+      yStick_P2 = analogRead(YPIN_P2);               // 0 = LINKS  1023 = RECHTS
+      yVal_P2 = map(yStick_P2, 0, 1023, -100, 100);
+      xStick_P2 = analogRead(XPIN_P2);               // 0 = OBEN   1023 = UNTEN
+      xVal_P2 = map(xStick_P2, 0, 1023, -100, 100);
+      
+      if (yVal_P1 < -20 || yVal_P2 < -20) {         // Aussteuerung nach oben
         _Dir = UP;
       }
-      else if (_yPos > 20) {    // Aussteuerung nach unten
+      else if (yVal_P1 > 20 ||yVal_P2 < -20 ) {    // Aussteuerung nach unten
         _Dir = DOWN;
       }
-      else if (_xPos < -20) {         // Aussteuerung nach links
+      else if (xVal_P1 < -20 || xVal_P2 < -20) {         // Aussteuerung nach links
         _Dir = LEFT;
       }
-      else if (_xPos > 20) {    // Aussteuerung nach rechts
+      else if (xVal_P1 > 20 || xVal_P2 > 20 ) {    // Aussteuerung nach rechts
         _Dir = RIGHT;
       }
       else{
@@ -173,10 +184,38 @@ class Gameobject {
           break;
       }
     }
-
-
-
-    
 };
 
+  class Player {
+    public:
+    String _playerId;
+    int _highscore;
+    int _runDuration;
+    
+     Player ( String playerId, int highscore, int runDuration){
+      setPlayerId(playerId);
+      setHighscore(highscore);
+      setDuration(runDuration);
+    }
+    //setter
+   void setPlayerId(String playerId){
+      _playerId = playerId;
+    }
+   void  setHighscore(int highscore){
+      _highscore = highscore;
+    }
+   void setDuration(int runDuration){
+      _runDuration = runDuration;
+    }
+    //getter
+    String getPlayerId(){
+      return _playerId;
+    }
+    int getHighscore(){
+      return _highscore;
+    }
+    int getDuration(){
+      return _runDuration;
+    }
+  };
 #endif

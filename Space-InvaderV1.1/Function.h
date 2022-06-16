@@ -82,15 +82,15 @@ void mainGame() {
     }
 }
 
+
 void enterName(Gameobject * object) {
   for (i = 0; i <= 25 && object-> _Dir == DOWN; i++) {
-    object->getStick();
     lcd.setCursor(1, 3 + j);                            // Eingabeart ist noch nicht klar!!(vielleicht Buchstaben A-Z pro Zeichen durchlaufen und mit Button bestätigen und zur nächsten Stelle springen
     lcd.print(arrayLetters[i]);
     delay(2000);
 
     if (button.isPressed()) {
-      tempName[j] = arrayLetters[i];                    // Einzelne Buchstaben des Arrays in id übertragen in einen String
+      tempName[j] = arrayLetters[i];                    // Einzelne Buchstaben des Arrays in id übertragen in einen String speichern
       // lcd.print(arrayLetters[i]);
       j++;
       return j;
