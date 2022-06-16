@@ -1,0 +1,4 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "Space-InvaderV1.1\\Space-InvaderV1.1.ino"
+}
