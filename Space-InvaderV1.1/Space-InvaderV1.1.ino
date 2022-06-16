@@ -43,7 +43,7 @@ void loop() {
   buttonState = button.getState();
   mainmenu(&p1);
   runtime();
-  if ()
+  if ();
   p1.motion();
   p2.motion();
   p1.getStick();

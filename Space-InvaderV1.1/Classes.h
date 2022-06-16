@@ -62,7 +62,7 @@ void setTid(bool tid){
 void setTscore(int tscore){         
  _tscore = tscore;        
 }
-void setTargetID(int targetid){
+void settargetid(int targetid){
 _targetid = targetid;
 }
 
