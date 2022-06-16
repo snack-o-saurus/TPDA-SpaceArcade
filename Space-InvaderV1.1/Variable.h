@@ -3,8 +3,13 @@
 int t = 500;
 bool solo = false;
 bool start = false;
+bool player;
 
-int buttonState;
+int button1State;
+int button2State;
+int button3State;
+int button4State;
+
 int buttonPrestate;
 int servoAngle = 0;
 int xStick_P1 = 0;

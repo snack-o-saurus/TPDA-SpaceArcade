@@ -3,11 +3,11 @@
 #include "libraries.h"
 #include "Variable.h"
 
-#define SWPIN_P1 2
+#define SWPIN_P1 15
 #define XPIN_P1 A0
 #define YPIN_P1 A1
 
-#define SWPIN_P2 3
+#define SWPIN_P2 14
 #define XPIN_P2 A2
 #define YPIN_P2 A3
 
@@ -28,10 +28,19 @@
 #define EN_PIN_TILT    7        // LOW = enable driver  / HIGH = disable driver
 #define DIR_PIN_TILT   5
 #define SERVO_PIN      9
-#define BUTTON_PIN     4
 
 
-ezButton button(BUTTON_PIN);
+#define BUTTON1_PIN     1
+#define BUTTON2_PIN     2
+#define BUTTON3_PIN     3
+#define BUTTON4_PIN     4 
+
+
+ezButton button1(BUTTON1_PIN);
+ezButton button2(BUTTON2_PIN);
+ezButton button3(BUTTON3_PIN);
+ezButton button4(BUTTON4_PIN);
+
 TMC2208Stepper driver = TMC2208Stepper(&Serial);  // Create driver and use
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27
 Servo servo; 

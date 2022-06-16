@@ -54,8 +54,9 @@ void runtime() {
   }
 }
 void pullTrigger() {
-  if (button.isPressed()) {
-    Serial.println(buttonState);
+  if (button1.isPressed() || button2.isPressed()) {
+    Serial.println(button1State);
+    Serial.println(button2State);
     servo.write(180);
     delay(300);
     servo.write(90);
@@ -69,18 +70,7 @@ void pullTrigger() {
   // all functions explicitly for multiplayer belong here
   }
 */
-void mainGame() {
-  // read Target feedback(hitzone, dead or alife)
-  // count Score & save it
-  // count runtime
-  if (solo == false)
-    //start PvP
-    //switch controll off turret between p1 & p2
-    if (solo == true) {
-      //start solo
-      //start Countdown
-    }
-}
+
 
 
 void enterName(Gameobject * object) {

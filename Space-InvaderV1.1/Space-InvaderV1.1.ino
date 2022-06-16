@@ -17,7 +17,7 @@ Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN_P2, YPIN_P2, SWPIN_P2);    // Stic
 
 void setup() {
   Serial.begin(9600);
- 
+
   pinMode(EN_PIN_PAN, OUTPUT);
   pinMode(STEP_PIN_PAN, OUTPUT);
   pinMode(EN_PIN_TILT, OUTPUT);
@@ -30,36 +30,88 @@ void setup() {
   pinMode(YPIN_P2,  INPUT);
   pinMode(SWPIN_P2, INPUT);
 
-  button.setDebounceTime(100);
+  button1.setDebounceTime(100);
+  button2.setDebounceTime(100);
+  button3.setDebounceTime(100);
+  button4.setDebounceTime(100);
   servo.attach(SERVO_PIN);
   lcd.init();
   lcd.backlight();
-  
+
   digitalWrite(EN_PIN_PAN, HIGH);
   digitalWrite(EN_PIN_TILT, HIGH);
 }
 void loop() {
-  button.loop();
-  buttonState = button.getState();
+  button1.loop();
+  button2.loop();
+  button3.loop();
+  button4.loop();
+  button1State = button1.getState();
+  button2State = button2.getState();
+  button3State = button3.getState();
+  button4State = button4.getState();
+
   mainmenu(&p1);
-  runtime();
-  if ()
-  p1.motion();
-  p2.motion();
-  p1.getStick();
-  p2.getStick();
-  if(solo==true){
-    enterName(&p1);
-  }
-  pullTrigger();
-
-  if (button.isReleased()){
-    
-  }
-  
-
-
-
-
-
+  mainGame();
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ void mainGame() {
+    // read Target feedback(hitzone, dead or alife)
+    // count Score & save it
+    // count runtime
+    runtime();
+    if (solo == false) {
+      if (player == false) {
+        p2.getStick();
+        p2.motion();
+        pullTrigger();
+        if (button1.isReleased()) {
+          player = true;
+        }
+      }
+      if (player == true) {
+        p1.getStick();
+        p1.motion();
+        pullTrigger();
+        if (button2.isReleased()) {
+          player = false;
+        }
+      }
+      //start PvP
+      //switch controll off turret between p1 & p2
+    }
+    if (solo == true) {
+
+      enterName(&p1);
+      p1.getStick();
+      p1.motion();
+      pullTrigger();
+      //start Countdown
+      //start solo
+    }
+  }
