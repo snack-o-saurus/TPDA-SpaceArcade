@@ -31,16 +31,25 @@ private: int _tcount;
 public: int _tscore;
         int _targetid;
   
-  target(int tcount, bool tid, int targetid){
+  target(int tcount, bool tid,int tscore, int targetid){
     setTcount(tcount);
     setTid(tid);
     settargetid(targetid);
-    
-   
-    
-    
-    
   }
+      
+         
+ void setTcount(int tcount){
+     _tcount = tcount;                
+ }    
+void setTid(tid){
+   _targetid = targetid;      
+ }     
+void setTscore{         
+ _tscore = tscore;        
+}
+void 
+         
+         
 };
 
 class Gameobject {
