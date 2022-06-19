@@ -12,21 +12,22 @@
 #define YPIN_P2 A3
 
 /* Target recognition */
-#define PINT1     A2
-#define PINT2     A3
-#define PINT3     A4
-#define PINT4     A5
-#define PINT5     A6
+#define PINT1     A4
+#define PINT2     A5
+#define PINT3     A6
+#define PINT4     A7
+#define PINT5     A8
 
 
 
 #define STEP_PIN_PAN  10        // Step on rising edge
-#define EN_PIN_PAN    13         // LOW = enable driver  / HIGH = disable driver
+#define EN_PIN_PAN    12         // LOW = enable driver  / HIGH = disable driver
 #define DIR_PIN_PAN   11
 
-#define STEP_PIN_TILT  6        // Step on rising edge
+#define STEP_PIN_TILT  8        // Step on rising edge
 #define EN_PIN_TILT    7        // LOW = enable driver  / HIGH = disable driver
-#define DIR_PIN_TILT   5
+#define DIR_PIN_TILT   6
+
 #define SERVO_PIN      9
 
 

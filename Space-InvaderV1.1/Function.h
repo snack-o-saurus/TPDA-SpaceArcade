@@ -9,7 +9,7 @@ void mainmenu(Gameobject * object) {
         lcd.print("-Press RED Button-");
         lcd.setCursor(1, 1);
         lcd.print("[PvP]   Solo");
-        if (button.isPressed()) {             //initiate Verus-MOD
+        if (button1.isPressed()) {             //initiate Verus-MOD
           lcd.clear();
           digitalWrite(EN_PIN_PAN, LOW);
           digitalWrite(EN_PIN_TILT, LOW);
@@ -24,7 +24,7 @@ void mainmenu(Gameobject * object) {
         lcd.print("-Press RED Button-");
         lcd.setCursor(2, 1);
         lcd.print(String("PvP   [Solo]"));
-        if (button.isPressed()) {            //initiate Solo-MOD
+        if (button1.isPressed()) {            //initiate Solo-MOD
           lcd.clear();
           Serial.println("Button pressed");
           digitalWrite(EN_PIN_PAN, LOW);
@@ -79,7 +79,7 @@ void enterName(Gameobject * object) {
     lcd.print(arrayLetters[i]);
     delay(2000);
 
-    if (button.isPressed()) {
+    if (button1.isPressed()) {
       tempName[j] = arrayLetters[i];                    // Einzelne Buchstaben des Arrays in id übertragen in einen String speichern
       // lcd.print(arrayLetters[i]);
       j++;
