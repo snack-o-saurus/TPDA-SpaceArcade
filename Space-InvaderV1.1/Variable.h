@@ -20,6 +20,7 @@ int xStick_P2 = 0;
 int yStick_P2 = 0;
 int yVal_P2;
 int xVal_P2;
+int scoregain;
 
 uint32_t menutime;
 uint32_t systime;
@@ -38,11 +39,20 @@ String tempName[10];
 String tempId;
 
 enum eDirection {
-  LEFT = 1,
+  LEFT,
   RIGHT,
   UP,
   DOWN
 };
+
+enum eDifficulty{
+  HEAVY,
+  MIDDLE,
+  EASY
+};
+  
+  
+
 
 
 

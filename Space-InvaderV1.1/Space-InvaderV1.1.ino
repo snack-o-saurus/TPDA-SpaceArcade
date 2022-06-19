@@ -9,10 +9,10 @@
 // Library initialization with 16x2 size settings
 
 //Controller(String label, int stickPinX, int stickPinY, int stickButton, int buttonA)
-//Tower(String id, byte control, int score, byte Dir)
+// target(int thealth, int  tvalue, bool talive, int tscore, int targetid, int trank) 
 Gameobject p1("Player 1", 1, 0, 0, 0, 0, XPIN_P1, YPIN_P1, SWPIN_P1);
 Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN_P2, YPIN_P2, SWPIN_P2);    // Stickbelegung für Player 2 festlegen
-
+target Alien(2,0,true,3,PINT1,MIDDLE);
 
 
 void setup() {
@@ -26,14 +26,18 @@ void setup() {
   pinMode(XPIN_P1,  INPUT);
   pinMode(YPIN_P1,  INPUT);
   pinMode(SWPIN_P1, INPUT);
+  /*
   pinMode(XPIN_P2,  INPUT);
   pinMode(YPIN_P2,  INPUT);
   pinMode(SWPIN_P2, INPUT);
+  */
+  pinMode(PINT1,INPUT);
 
   button1.setDebounceTime(100);
   button2.setDebounceTime(100);
-  button3.setDebounceTime(100);
-  button4.setDebounceTime(100);
+ // button3.setDebounceTime(100);
+ // button4.setDebounceTime(100);
+ 
   servo.attach(SERVO_PIN);
   lcd.init();
   lcd.backlight();
@@ -42,6 +46,7 @@ void setup() {
   digitalWrite(EN_PIN_TILT, HIGH);
 }
 void loop() {
+
   button1.loop();
   button2.loop();
   button3.loop();
@@ -53,14 +58,14 @@ void loop() {
 
   mainmenu(&p1);
  // mainGame();
-  
- 
+ Alien.detectHit();
+ Alien.readTvalue();
   p1.getStick();
-  p2.getStick();
+ // p2.getStick();
 } 
  
 
- /* void mainGame() {
+  void mainGame() {
     // read Target feedback(hitzone, dead or alife)
     // count Score & save it
     runtime();
@@ -94,4 +99,3 @@ void loop() {
       //start solo
     }
   }
-  */

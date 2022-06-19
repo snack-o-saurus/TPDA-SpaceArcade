@@ -34,7 +34,7 @@
 #define BUTTON1_PIN     1
 #define BUTTON2_PIN     2
 #define BUTTON3_PIN     3
-#define BUTTON4_PIN     4 
+#define BUTTON4_PIN     4
 
 
 ezButton button1(BUTTON1_PIN);
@@ -42,53 +42,119 @@ ezButton button2(BUTTON2_PIN);
 ezButton button3(BUTTON3_PIN);
 ezButton button4(BUTTON4_PIN);
 
+
 TMC2208Stepper driver = TMC2208Stepper(&Serial);  // Create driver and use
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27
-Servo servo; 
+Servo servo;
 
 
 /*   Implementing object type for targets & score counting      */
-class target {
-private: 
-         bool _tid = false;
-  
-public: int _tscore;
-        int _targetid;
-         int _tcount;
-  
-  target(int tcount, bool tid,int tscore, int targetid){
-    setTcount(tcount);
-    setTid(tid);
-    settargetid(targetid);
-  }
-      
-/*                Setter functions                            */       
-void setTcount(int tcount){
- _tcount = tcount;                
-}    
-void setTid(bool tid){
-   _tid = tid;      
-}     
-void setTscore(int tscore){         
- _tscore = tscore;        
-}
-void settargetid(int targetid){
-_targetid = targetid;
-}
 
-/*                 Getter Functions                          */
-int getcount(){
-return _tcount;
-}
-bool getT(){
-return(_tid);
-}
-int getTid(){
-return(_targetid);
-}
-        
-         
+
+class target {
+  private:
+
+
+  public:
+    String _tscore;
+    int _tvalue;
+    int _targetid;
+    int _thealth;
+    bool _talive = true;
+    int _trank;
+
+    target(int thealth, int  tvalue, bool talive, int tscore, int targetid, int trank) {
+      setThealth(thealth);
+      setTvalue(tvalue);
+      setTalive(talive);
+      setTargetid(targetid);
+      setTrank(trank);
+      detectHit();
+      readTvalue();
+     
+    }
+
+    /*                Setter functions                            */
+    void setThealth(int thealth) {
+      _thealth = thealth;
+    }
+    void setTvalue(int tvalue) {
+      _tvalue = tvalue;
+    }
+    void setTalive(bool talive) {
+      _talive = talive;
+      if (_thealth <= 0) {
+        _talive = false;
+      }
+    }
+    void setTscore(int tscore) {
+      _tscore = tscore;
+    }
+    void setTargetid(int targetid) {
+      _targetid = targetid;
+    }
+    void setTrank(int trank) {
+      _trank = trank;
+    }
+
+    /*                 Getter Functions                          */
+    int getThealth() {
+      return _thealth;
+    }
+    int getTvalue() {
+      return _tvalue;
+    }
+    bool getTalive() {
+      return _talive;
+    }
+    int getTid() {
+      return _targetid;
+    }
+    int getTrank() {
+      return _trank;
+    }
+    /*                 Main Methods                               */
+    void detectHit() {
+      Serial.println(_tvalue);
+      if (_tvalue > 0) {
+        _thealth = _thealth --;
+        switch (_targetid) {
+          case HEAVY:
+            scoregain = 5;
+            lcd.setCursor(0, 0);
+            lcd.print("Heavy Target hit");
+            if(_thealth > 1){
+            lcd.setCursor(1, 4);
+            lcd.print("Try harder!");
+            }
+            break;
+          case MIDDLE:
+            scoregain = 3;
+            lcd.setCursor(0, 0);
+            lcd.print("normal Target hit");
+            lcd.setCursor(1, 4);
+            lcd.print("Try harder!");
+            Serial.println("normal Target hit");
+            break;
+          case EASY:
+            scoregain = 1;
+            lcd.setCursor(0, 0);
+            lcd.print("easy Target hit");
+            lcd.setCursor(1, 4);
+            lcd.print("Almost to easy!");
+            break;
+        }
+
+      }
+
+    }
+  void readTvalue()  {
+ _tvalue = analogRead(_targetid);
+ Serial.println(_tvalue);
+ 
+  }
 };
+
 
 class Gameobject {
 
@@ -103,7 +169,7 @@ class Gameobject {
     int _xPin;
     int _yPin;
     byte _swPin;
-    
+
     Gameobject(String id, byte control, int score, byte Dir, int xPos, int yPos, int xPin, int yPin, byte swPin) {
 
       setId(id);
@@ -121,7 +187,7 @@ class Gameobject {
 
     //Setter
     void setId(String id) {
-      _id = id;   
+      _id = id;
     }
     void setControl(byte control) {
       _control = control;
@@ -182,16 +248,16 @@ class Gameobject {
       yVal_P1 = map(yStick_P1, 0, 1023, -100, 100);
       xStick_P1 = analogRead(XPIN_P1);               // 0 = OBEN   1023 = UNTEN
       xVal_P1 = map(xStick_P1, 0, 1023, -100, 100);
-      
+
       yStick_P2 = analogRead(YPIN_P2);               // 0 = LINKS  1023 = RECHTS
       yVal_P2 = map(yStick_P2, 0, 1023, -100, 100);
       xStick_P2 = analogRead(XPIN_P2);               // 0 = OBEN   1023 = UNTEN
       xVal_P2 = map(xStick_P2, 0, 1023, -100, 100);
-      
+
       if (yVal_P1 < -20 || yVal_P2 < -20) {         // Aussteuerung nach oben
         _Dir = UP;
       }
-      else if (yVal_P1 > 20 ||yVal_P2 < -20 ) {    // Aussteuerung nach unten
+      else if (yVal_P1 > 20 || yVal_P2 < 20 ) {   // Aussteuerung nach unten
         _Dir = DOWN;
       }
       else if (xVal_P1 < -20 || xVal_P2 < -20) {         // Aussteuerung nach links
@@ -200,7 +266,7 @@ class Gameobject {
       else if (xVal_P1 > 20 || xVal_P2 > 20 ) {    // Aussteuerung nach rechts
         _Dir = RIGHT;
       }
-      else{
+      else {
         _Dir = 0;
       }
 
@@ -223,60 +289,61 @@ class Gameobject {
           break;
 
         case UP:
-        Serial.println("UP");
+          Serial.println("UP");
           digitalWrite(DIR_PIN_TILT, HIGH);
           analogWrite(STEP_PIN_TILT, 127);
           //digitalWrite(STEP_PIN_TILT, HIGH);
           delay(50);
           break;
-          
+
         case DOWN:
-        Serial.println("DOWN");
+          Serial.println("DOWN");
           digitalWrite(DIR_PIN_TILT, LOW);
           analogWrite(STEP_PIN_TILT, 127);
           //digitalWrite(STEP_PIN_TILT, HIGH);
           delay(50);
           break;
-          
+
         default:
-        //Serial.println("STOP");
+          //Serial.println("STOP");
           digitalWrite(STEP_PIN_TILT, LOW);
           digitalWrite(STEP_PIN_PAN, LOW);
           break;
       }
     }
 };
-
+/*
   class Player {
-    public:
+  public:
     String _playerId;
     int _highscore;
     int _runDuration;
-    
-     Player ( String playerId, int highscore, int runDuration){
+
+    Player ( String playerId, int highscore, int runDuration) {
       setPlayerId(playerId);
       setHighscore(highscore);
       setDuration(runDuration);
     }
     //setter
-   void setPlayerId(String playerId){
+    void setPlayerId(String playerId) {
       _playerId = playerId;
     }
-   void  setHighscore(int highscore){
+    void  setHighscore(int highscore) {
       _highscore = highscore;
     }
-   void setDuration(int runDuration){
+    void setDuration(int runDuration) {
       _runDuration = runDuration;
     }
     //getter
-    String getPlayerId(){
+    String getPlayerId() {
       return _playerId;
     }
-    int getHighscore(){
+    int getHighscore() {
       return _highscore;
     }
-    int getDuration(){
+    int getDuration() {
       return _runDuration;
     }
   };
+*/
 #endif

@@ -3,6 +3,7 @@
 
 void mainmenu(Gameobject * object) {
   if (!start) {
+    object->getStick();
     switch (object -> _Dir) {
       case LEFT:
         lcd.setCursor(0, 0);
@@ -74,6 +75,8 @@ void pullTrigger() {
 
 
 void enterName(Gameobject * object) {
+  lcd.setCursor(0,0);
+  lcd.print("Enter your Name");
   for (i = 0; i <= 25 && object-> _Dir == DOWN; i++) {
     lcd.setCursor(1, 3 + j);                            // Eingabeart ist noch nicht klar!!(vielleicht Buchstaben A-Z pro Zeichen durchlaufen und mit Button bestätigen und zur nächsten Stelle springen
     lcd.print(arrayLetters[i]);
