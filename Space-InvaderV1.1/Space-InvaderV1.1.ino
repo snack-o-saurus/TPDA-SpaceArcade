@@ -12,12 +12,11 @@
 // target(int thealth, int  tvalue, bool talive, int tscore, int targetid, int trank) 
 Gameobject p1("Player 1", 1, 0, 0, 0, 0, XPIN_P1, YPIN_P1, SWPIN_P1);
 Gameobject p2("Player 2", 2, 0, 0, 0, 0, XPIN_P2, YPIN_P2, SWPIN_P2);    // Stickbelegung für Player 2 festlegen
-target Alien(2,0,true,3,PINT1,MIDDLE);
+//target Alien(2,0,true,3,PINT1,MIDDLE);
 
 
 void setup() {
   Serial.begin(9600);
-
   pinMode(EN_PIN_PAN, OUTPUT);
   pinMode(STEP_PIN_PAN, OUTPUT);
   pinMode(EN_PIN_TILT, OUTPUT);
@@ -49,18 +48,19 @@ void loop() {
 
   button1.loop();
   button2.loop();
-  button3.loop();
-  button4.loop();
+ // button3.loop();
+ // button4.loop();
   button1State = button1.getState();
   button2State = button2.getState();
-  button3State = button3.getState();
-  button4State = button4.getState();
+ // button3State = button3.getState();
+ // button4State = button4.getState();
 
   mainmenu(&p1);
  // mainGame();
- Alien.detectHit();
- Alien.readTvalue();
+// Alien.detectHit();
+// Alien.readTvalue();
   p1.getStick();
+  p1.motion();
  // p2.getStick();
 } 
  
@@ -90,7 +90,6 @@ void loop() {
       //switch controll off turret between p1 & p2
     }
     if (solo == true) {
-
       enterName(&p1);
       p1.getStick();
       p1.motion();

@@ -117,7 +117,7 @@ class target {
     void detectHit() {
       Serial.println(_tvalue);
       if (_tvalue > 0) {
-        _thealth = _thealth --;
+        _thealth = _thealth - 1;
         switch (_targetid) {
           case HEAVY:
             scoregain = 5;
@@ -144,9 +144,7 @@ class target {
             lcd.print("Almost to easy!");
             break;
         }
-
       }
-
     }
   void readTvalue()  {
  _tvalue = analogRead(_targetid);
@@ -248,22 +246,23 @@ class Gameobject {
       yVal_P1 = map(yStick_P1, 0, 1023, -100, 100);
       xStick_P1 = analogRead(XPIN_P1);               // 0 = OBEN   1023 = UNTEN
       xVal_P1 = map(xStick_P1, 0, 1023, -100, 100);
-
+/*
       yStick_P2 = analogRead(YPIN_P2);               // 0 = LINKS  1023 = RECHTS
       yVal_P2 = map(yStick_P2, 0, 1023, -100, 100);
       xStick_P2 = analogRead(XPIN_P2);               // 0 = OBEN   1023 = UNTEN
       xVal_P2 = map(xStick_P2, 0, 1023, -100, 100);
+      */
 
-      if (yVal_P1 < -20 || yVal_P2 < -20) {         // Aussteuerung nach oben
+      if (yVal_P1 < -20) {         // Aussteuerung nach oben
         _Dir = UP;
       }
-      else if (yVal_P1 > 20 || yVal_P2 < 20 ) {   // Aussteuerung nach unten
+      else if (yVal_P1 > 20 ) {   // Aussteuerung nach unten
         _Dir = DOWN;
       }
-      else if (xVal_P1 < -20 || xVal_P2 < -20) {         // Aussteuerung nach links
+      else if (xVal_P1 < -20) {         // Aussteuerung nach links
         _Dir = LEFT;
       }
-      else if (xVal_P1 > 20 || xVal_P2 > 20 ) {    // Aussteuerung nach rechts
+      else if (xVal_P1 > 20) {    // Aussteuerung nach rechts
         _Dir = RIGHT;
       }
       else {
