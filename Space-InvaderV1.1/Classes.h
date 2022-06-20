@@ -71,10 +71,10 @@ class target {
       setTrank(trank);
       detectHit();
       readTvalue();
-     
+
     }
 
-    /*                Setter functions                            */
+    //   Setter functions
     void setThealth(int thealth) {
       _thealth = thealth;
     }
@@ -97,7 +97,7 @@ class target {
       _trank = trank;
     }
 
-    /*                 Getter Functions                          */
+    //   Getter Functions
     int getThealth() {
       return _thealth;
     }
@@ -113,7 +113,7 @@ class target {
     int getTrank() {
       return _trank;
     }
-    /*                 Main Methods                               */
+    //    Main Methods
     void detectHit() {
       Serial.println(_tvalue);
       if (_tvalue > 0) {
@@ -123,61 +123,61 @@ class target {
             scoregain = 5;
             lcd.setCursor(0, 0);
             lcd.print("Heavy Target hit");
-            if(_thealth > 1){
-            lcd.setCursor(1, 4);
-            lcd.print("Try harder!");
+            if (_thealth > 1) {
+              lcd.setCursor(1, 4);
+              lcd.print("Try harder!");
             }
             break;
           case MIDDLE:
             scoregain = 3;
             lcd.setCursor(0, 0);
             lcd.print("normal Target hit");
-            lcd.setCursor(1, 4);
+            lcd.setCursor(1, 4 );
             lcd.print("Try harder!");
-            Serial.println("normal Target hit");
+
             break;
           case EASY:
             scoregain = 1;
             lcd.setCursor(0, 0);
             lcd.print("easy Target hit");
-            lcd.setCursor(1, 4);
+            lcd.setCursor(1, 2);
             lcd.print("Almost to easy!");
             break;
+          default:
+          scoregain = 0;
+          break;
         }
       }
     }
-  void readTvalue()  {
- _tvalue = analogRead(_targetid);
- Serial.println(_tvalue);
- 
-  }
+    void readTvalue()  {
+      _tvalue = analogRead(_targetid);
+      Serial.println(_tvalue);
+    }
 };
 
 
 class Gameobject {
-
-  private:
-    byte _control;
   public:
+    bool _control;
     int _score;
     String _id;
     byte _Dir;
-    int _xPos;
-    int _yPos;
+    int _xstick;
+    int _ystick;
     int _xPin;
     int _yPin;
     byte _swPin;
 
-    Gameobject(String id, byte control, int score, byte Dir, int xPos, int yPos, int xPin, int yPin, byte swPin) {
+    Gameobject(String id, bool control, int score, byte Dir, int xstick, int ystick, int xPin, int yPin, byte swPin) {
 
       setId(id);
       setControl(control);
       setScore(score);
       setDir(Dir);
       motion();
-      getStick();
-      setX(xPos);
-      setY(yPos);
+      getMotion();
+      setXstick(xstick);
+      setYstick(ystick);
       setXpin(xPin);
       setYpin(yPin);
       setSWpin(swPin);
@@ -187,7 +187,7 @@ class Gameobject {
     void setId(String id) {
       _id = id;
     }
-    void setControl(byte control) {
+    void setControl(bool control) {
       _control = control;
     }
     void setScore(int score) {
@@ -196,11 +196,11 @@ class Gameobject {
     void setDir( byte Dir) {
       _Dir = Dir;
     }
-    void setX(int xPos) {
-      _xPos = xPos;
+    void setXstick(int xstick) {
+      _xstick = xstick;
     }
-    void setY(int yPos) {
-      _yPos = yPos;
+    void setYstick(int ystick) {
+      _ystick = ystick;
     }
     void setXpin(int xPin) {
       _xPin = xPin;
@@ -215,7 +215,7 @@ class Gameobject {
     String getId() {
       return _id;
     }
-    byte getControl() {
+    bool getControl() {
       return _control;
     }
     int getScore() {
@@ -224,11 +224,11 @@ class Gameobject {
     int getDir() {
       return _Dir;
     }
-    int getX() {
-      return _xPos;
+    int getXstick() {
+      return _xstick;
     }
-    int getY() {
-      return _yPos;
+    int getYstick() {
+      return _ystick;
     }
     int getXpin() {
       return _xPin;
@@ -241,17 +241,17 @@ class Gameobject {
     }
     //Mainmethods
 
-    void getStick() {
-      yStick_P1 = analogRead(YPIN_P1);               // 0 = LINKS  1023 = RECHTS
+    void getMotion() {
+      yStick_P1 = analogRead(_ystick);               // 0 = LINKS  1023 = RECHTS
       yVal_P1 = map(yStick_P1, 0, 1023, -100, 100);
       xStick_P1 = analogRead(XPIN_P1);               // 0 = OBEN   1023 = UNTEN
       xVal_P1 = map(xStick_P1, 0, 1023, -100, 100);
-/*
+
       yStick_P2 = analogRead(YPIN_P2);               // 0 = LINKS  1023 = RECHTS
       yVal_P2 = map(yStick_P2, 0, 1023, -100, 100);
       xStick_P2 = analogRead(XPIN_P2);               // 0 = OBEN   1023 = UNTEN
       xVal_P2 = map(xStick_P2, 0, 1023, -100, 100);
-      */
+
 
       if (yVal_P1 < -20) {         // Aussteuerung nach oben
         _Dir = UP;
@@ -263,6 +263,22 @@ class Gameobject {
         _Dir = LEFT;
       }
       else if (xVal_P1 > 20) {    // Aussteuerung nach rechts
+        _Dir = RIGHT;
+      }
+      else {
+        _Dir = 0;
+      }
+
+      if (yVal_P2 < -20) {         // Aussteuerung nach oben
+        _Dir = UP;
+      }
+      else if (yVal_P2 > 20 ) {   // Aussteuerung nach unten
+        _Dir = DOWN;
+      }
+      else if (xVal_P2 < -20) {         // Aussteuerung nach links
+        _Dir = LEFT;
+      }
+      else if (xVal_P2 > 20) {    // Aussteuerung nach rechts
         _Dir = RIGHT;
       }
       else {
@@ -283,7 +299,6 @@ class Gameobject {
           Serial.println("RIGHT");
           digitalWrite(DIR_PIN_PAN, LOW);
           analogWrite(STEP_PIN_PAN, 127);
-          //digitalWrite(STEP_PIN_PAN, HIGH);
           delay(50);
           break;
 
@@ -291,7 +306,6 @@ class Gameobject {
           Serial.println("UP");
           digitalWrite(DIR_PIN_TILT, HIGH);
           analogWrite(STEP_PIN_TILT, 127);
-          //digitalWrite(STEP_PIN_TILT, HIGH);
           delay(50);
           break;
 
@@ -299,19 +313,17 @@ class Gameobject {
           Serial.println("DOWN");
           digitalWrite(DIR_PIN_TILT, LOW);
           analogWrite(STEP_PIN_TILT, 127);
-          //digitalWrite(STEP_PIN_TILT, HIGH);
           delay(50);
           break;
 
         default:
-          //Serial.println("STOP");
           digitalWrite(STEP_PIN_TILT, LOW);
           digitalWrite(STEP_PIN_PAN, LOW);
           break;
       }
     }
 };
-/*
+
   class Player {
   public:
     String _playerId;
@@ -343,6 +355,8 @@ class Gameobject {
     int getDuration() {
       return _runDuration;
     }
+
+    
   };
-*/
+  
 #endif

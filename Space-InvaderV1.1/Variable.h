@@ -4,6 +4,8 @@ int t = 500;
 bool solo = false;
 bool start = false;
 bool player;
+bool nameaccepted;
+bool gameover = false;
 
 int button1State;
 int button2State;
@@ -24,11 +26,13 @@ int scoregain;
 
 uint32_t menutime;
 uint32_t systime;
+uint32_t playtime ;
 
 
 byte i = 0;             //Variable für Durchlauf des Buchstabenarray`s
 byte z = 0;             //Variable für Durchlauf des Buchstabenarray`s
 byte j = 0;
+byte difficulty = 0;
 
 //char row1[];
 //char row2[];
@@ -45,12 +49,16 @@ enum eDirection {
   DOWN
 };
 
-enum eDifficulty{
+enum eTier{
   HEAVY,
   MIDDLE,
   EASY
 };
-  
+ enum eSpeed{
+  SLOW,
+  REGULAR,
+  FAST
+ };
   
 
 
